@@ -120,7 +120,7 @@ integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="ano
 
     <div class="nav-area" align="center">
         <div class="menu"><a href="<%=contextPath %>">HOME</a></div>
-        <div class="menu"><a href="<%=contextPath %>/views/notice/noticeListView.jsp">공지사항</a></div>
+        <div class="menu"><a href="<%=contextPath %>/list.no">공지사항</a></div>
         <div class="menu"><a href="">일반게시판</a></div>
         <div class="menu"><a href="">사진게시판</a></div>
     </div>
