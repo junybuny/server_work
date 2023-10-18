@@ -56,7 +56,8 @@
 	<entry key="deleteNotice">
 		UPDATE NOTICE
 		SET STATUS = 'N'
-		WHERE USER_ID = ?
+		JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
+		WHERE MEMBER.USER_ID = ?
 			AND NOTICE_NO = ?
 	</entry>
 </properties>

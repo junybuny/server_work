@@ -32,14 +32,12 @@ public class NoticeDeleteController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		String noticeWriter = request.getParameter("notice_writer");
 		int noticeNo = Integer.parseInt(request.getParameter("num"));
 		
-		Notice n = new Notice();
-		n.setNoticeNo(noticeNo);
+		int result = new NoticeService().deleteNotice(noticeWriter, noticeNo);
 		
-		int result = new NoticeService().deleteNotice(noticeNo);
-		
-		if (result > 0) { // 성공 => /jsp/detail.no?num=
+		if (result > 0) { // 성공
 			
 			request.getSession().setAttribute("alertMsg", "성공적으로 공지사항이 삭제되었습니다.");
 			response.sendRedirect(request.getContextPath() + "/detail.no" + noticeNo);
