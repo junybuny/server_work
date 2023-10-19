@@ -170,8 +170,8 @@ public class NoticeDao {
 		return result;
 	}
 
-	public int deleteNotice(Connection conn, String noticeWriter, int noticeNo) {
-		
+	public int deleteNotice(Connection conn, int noticeNo) {
+		// update문 => 처리된 행수 => 트랜잭션
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
@@ -179,9 +179,7 @@ public class NoticeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, noticeWriter);
-			pstmt.setInt(2, noticeNo);
+			pstmt.setInt(1, noticeNo);
 			
 			result = pstmt.executeUpdate();
 			

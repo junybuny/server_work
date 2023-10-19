@@ -31,9 +31,9 @@
 	</entry>
 	<entry key="increaseCount">
 		UPDATE NOTICE
-		SET COUNT = COUNT + 1
+			SET COUNT = COUNT + 1
 		WHERE NOTICE_NO = ?
-		AND STATUS = 'Y'
+			AND STATUS = 'Y'
 	</entry>
 	<entry key="selectNotice">
 		SELECT 
@@ -49,16 +49,14 @@
 	</entry>
 	<entry key="updateNotice">
 		UPDATE NOTICE
-		SET NOTICE_TITLE = ?,
-			NOTICE_CONTENT = ?
+			SET NOTICE_TITLE = ?,
+				NOTICE_CONTENT = ?
 		WHERE NOTICE_NO = ?
 	</entry>
 	<entry key="deleteNotice">
 		UPDATE NOTICE
-		SET STATUS = 'N'
-		JOIN MEMBER ON (NOTICE_WRITER = USER_NO)
-		WHERE MEMBER.USER_ID = ?
-			AND NOTICE_NO = ?
+			SET STATUS = 'N'
+		WHERE NOTICE_NO = ?
 	</entry>
 </properties>
 

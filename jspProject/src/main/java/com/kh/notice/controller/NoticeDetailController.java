@@ -38,7 +38,7 @@ public class NoticeDetailController extends HttpServlet {
 		
 		if (n != null) { // 성공 => 조회가능한 공지사항이 있다
 			request.setAttribute("notice", n);
-			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);;
+			request.getRequestDispatcher("views/notice/noticeDetailView.jsp").forward(request, response);
 			
 		} else { // 실패 =>
 			request.setAttribute("errorMsg", "공지사항이 조회에 실패하였습니다.");

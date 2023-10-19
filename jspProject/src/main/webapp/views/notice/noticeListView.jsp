@@ -40,7 +40,8 @@
 	        <!-- 현재 로그인한 사용자가 관리자일 경우에 보여짐 -->
 	        <div align="right" style="width: 850px;">
 	            <a href="<%=contextPath %>/enroll.no" class="btn btn-sm btn-secondary">글쓰기</a>
-	        </div>	
+                <br><br>
+            </div>	
         <% } %>
 
         <table class="list-area" align="center">

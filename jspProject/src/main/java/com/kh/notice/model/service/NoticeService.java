@@ -78,9 +78,9 @@ public class NoticeService {
 		return result;
 	}
 
-	public int deleteNotice(String noticeWriter, int noticeNo) {
+	public int deleteNotice(int noticeNo) {
 		Connection conn = getConnection();
-		int result = new NoticeDao().deleteNotice(conn, noticeWriter, noticeNo);
+		int result = new NoticeDao().deleteNotice(conn, noticeNo);
 		
 		if (result > 0) {
 			commit(conn);
