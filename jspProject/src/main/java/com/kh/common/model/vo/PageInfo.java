@@ -11,6 +11,7 @@ public class PageInfo {
 	
 	public PageInfo() {}
 	
+	// 모든 필드를 초기화하는 생성자
 	public PageInfo(int listCount, int currentPage, int pageLimit, int boardLimit, int maxPage, int startPage,
 			int endPage) {
 		super();

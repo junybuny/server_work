@@ -26,7 +26,7 @@ public class Board {
 		this.count = count;
 		this.createDate = createDate;
 		this.status = status;
-	}	
+	}
 	
 	// list에서 사용하는 생성자
 	public Board(int boardNo, String category, String boardTitle, String boardWriter, int count, String createDate) {
