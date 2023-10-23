@@ -70,11 +70,11 @@
         </table>
         <br>
         <div align="center">
-            <a href="" class="btn btn-sm btn-secondary">목록가기</a>
+            <a href="<%=contextPath %>/list.bo?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
 			
 			<% if (loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())) { %>
 	            <!-- 로그인한 사용자(loginUser)가 게시글(b)의 작성자일 경우 사용가능 -->
-	            <a href="" class="btn btn-sm btn-warning">수정하기</a>
+	            <a href="<%=contextPath %>/updateForm.bo?bno=<%=b.getBoardNo() %>" class="btn btn-sm btn-warning">수정하기</a>
 	            <a href="" class="btn btn-sm btn-danger">삭제하기</a>
             <% } %>
         </div>
