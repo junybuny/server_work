@@ -13,7 +13,7 @@
 		background: black;
 		color: white;
 		width: 1000px;
-		height: 500px;
+		height: 550px;
 		margin: auto;
 		margin-top: 50px;
 	}

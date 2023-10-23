@@ -24,12 +24,13 @@ public class MyFileRenamePolicy implements FileRenamePolicy{
 		// 2. 5자리 랜덤값
 		int ranNum = (int)(Math.random()*90000 + 10000);
 		
-		// 3. 원본파일확장자
+		// 3. 원본파일확장자(뒤에서부터 . 을 찾아서 문자 추출하겠다)
 		String ext = originName.substring(originName.lastIndexOf("."));
 		
 		// 통합
 		String changeName = currentTime + ranNum + ext;
 		
+		// getParent() 하면 해당파일의 경로가 나온다.
 		File changeFile = new File(originFile.getParent(), changeName);
 		
 		return changeFile;

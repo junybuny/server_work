@@ -10,6 +10,8 @@ import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Category;
 import com.kh.common.model.vo.Attachment;
 import com.kh.common.model.vo.PageInfo;
+import com.kh.notice.model.dao.NoticeDao;
+import com.kh.notice.model.vo.Notice;
 
 public class BoardService {
 	
@@ -63,4 +65,37 @@ public class BoardService {
 		
 		return result1 * result2;
 	}
+
+	public Board increaseCount(int boardNo) {
+		Connection conn = getConnection();
+		
+		BoardDao bDao = new BoardDao();
+		int result = bDao.increaseCount(conn, boardNo);
+		
+		Board b = null;
+		if (result > 0) {
+			commit(conn);
+			// 정보조회
+			b = bDao.selectBoard(conn, boardNo);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return b;
+	}
+
+	public Attachment selectAttachment(int boardNo) {
+		Connection conn = getConnection();
+		Attachment at = new BoardDao().selectAttachment(conn, boardNo);
+		
+		close(conn);
+		
+		return at;
+	}
+	
+	
+	
+	
 }

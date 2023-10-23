@@ -81,6 +81,19 @@
           		<% } %>
             </tbody>
         </table>
+        <script>
+        	$(function(){
+        		$(".list-area>tbody>tr").click(function(){
+        			// $(this) => 클린된 객체를 가르킨다.
+        			// 객체.children() => 객체의 자식노드들을 전부 가져온다.
+        			// 노드List.eq(index) => 노드list에서 해당 index의 값을 가져온다.
+        			// text() => 그냥 메서드를 호출하면 텍스트를 반환하고 내부에 값을 전달하면 값이 들어간다.
+        			
+        			location.href = "<%=contextPath %>/datail.bo?bno=" + $(this).children().eq(0).text();
+        		})
+        	})
+        
+        </script>
         <br><br>
 
         <div class="paging-area" align="center">
