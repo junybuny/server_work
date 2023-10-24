@@ -1,11 +1,16 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.board.model.service.BoardService;
+import com.kh.board.model.vo.Board;
 
 /**
  * Servlet implementation class ThumbnailListController
@@ -26,9 +31,11 @@ public class ThumbnailListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// thumbnailList를 전부 가져와 넘겨줘야하지만 데이터가 없으므로
-		// 나중에 추가 예정
+		//thumbnailList를 전부 가져와 넘겨줘야하지만 데이터가 없으므로
+		//나중에 추가예정
+		ArrayList<Board> list = new BoardService().selectThumbnailList();
 		
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/board/thumbnailListView.jsp").forward(request, response);
 		
 	}

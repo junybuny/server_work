@@ -28,8 +28,7 @@ public class ThumbnailEnrollFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.getRequestDispatcher("views/board/thumbnailEnrollForm.jsp").forward(request, response);
-	
-	
+		
 	}
 
 	/**

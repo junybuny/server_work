@@ -39,7 +39,7 @@
 		<h2>일반게시판 수정하기</h2>
 		<br>
 
-        <form id="update-form" action="<%=contextPath %>/update.bo" method="post" enctype="multipart/form-data">
+        <form id="update-form" action="<%=contextPath%>/update.bo" method="post" enctype="multipart/form-data">
             <!-- 카테고리, 제목, 내용, 첨부파일 한개 -->
             <input type="hidden" name="bno" value="<%=b.getBoardNo() %>">
             <table>

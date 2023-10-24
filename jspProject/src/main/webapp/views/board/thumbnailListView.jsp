@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.kh.board.model.vo.Board"%>
+<%
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,62 +31,56 @@
         cursor: pointer;
         opacity: 0.8;
     }
+
+    .thumbnail p > span{
+        display: inline-block;
+        width: 200px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 </style>
 </head>
 <body>
     <%@ include file="../common/menubar.jsp" %>
 
+
     <div class="outer">
         <br>
-        <h2 align="center">사진 게시판</h2>
+        <h2 align="center">사진게시판</h2>
         <br>
-		
-		<% if (loginUser != null) { %>
+
+
+		<%if(loginUser != null) { %>
 	        <div align="right" style="max-width: 850px; margin: auto;">
 	            <a href="<%=contextPath %>/enrollForm.th" class="btn btn-sm btn-secondary">글작성</a>
 	            <br><br>
 	        </div>
-        <% } %>
+        <%} %>
+
 
         <div class="list-area">
-            <div class="thumbnail" align="center">
-                <img width="200" height="150" src="http://localhost:8002/jsp/resources/board_upfile/2023102316502757665.jpg" alt="썸네일">
-                <p>
-                    No. 117 안녕하세요. <br>
-                    조회수 : 555
-                </p>
-            </div>
-            <div class="thumbnail" align="center">
-                <img width="200" height="150" src="http://localhost:8002/jsp/resources/board_upfile/2023102316502757665.jpg" alt="썸네일">
-                <p>
-                    No. 117 안녕하세요. <br>
-                    조회수 : 555
-                </p>
-            </div>
-            <div class="thumbnail" align="center">
-                <img width="200" height="150" src="http://localhost:8002/jsp/resources/board_upfile/2023102316502757665.jpg" alt="썸네일">
-                <p>
-                    No. 117 안녕하세요. <br>
-                    조회수 : 555
-                </p>
-            </div>
-            <div class="thumbnail" align="center">
-                <img width="200" height="150" src="http://localhost:8002/jsp/resources/board_upfile/2023102316502757665.jpg" alt="썸네일">
-                <p>
-                    No. 117 안녕하세요. <br>
-                    조회수 : 555
-                </p>
-            </div>
-            <div class="thumbnail" align="center">
-                <img width="200" height="150" src="http://localhost:8002/jsp/resources/board_upfile/2023102316502757665.jpg" alt="썸네일">
-                <p>
-                    No. 117 안녕하세요. <br>
-                    조회수 : 555
-                </p>
-            </div>
-        </div>
         
-
+        	<%for (Board b : list) { %>
+	            <div class="thumbnail" align="center">
+	            	<input type="hidden" value="<%=b.getBoardNo()%>">
+	                <img width="200" height="150" src="<%=contextPath%>/<%=b.getTitleImg()%>" alt="썸네일">
+	                <p>
+	                    <span>No. <%=b.getBoardNo() %> <%=b.getBoardTitle() %></span><br>
+	                    조회수 : <%=b.getCount() %>
+	                </p>
+	            </div>
+           <%} %>
+        </div>
     </div>
+    
+    
+    <script>
+    	$(function(){
+    		$(".thumbnail").click(function(){
+    			location.href = "<%=contextPath%>/detail.th?bno=" + $(this).children().eq(0).val();
+    		})
+    	})
+    </script>
 </body>
 </html>
