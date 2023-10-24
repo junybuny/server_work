@@ -39,7 +39,7 @@ public class BoardUpdateController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		if (ServletFileUpload.isMultipartContent(request)) {
-			
+				
 			// 1_1) 용량제한크기
 			int maxSize = 10 * 1024 * 1024;
 			

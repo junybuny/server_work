@@ -15,7 +15,7 @@ import com.kh.common.model.vo.Attachment;
 /**
  * Servlet implementation class BoardDetailController
  */
-@WebServlet("/datail.bo")
+@WebServlet("/detail.bo")
 public class BoardDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
