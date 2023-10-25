@@ -15,15 +15,15 @@
         background: black;
         color: white;
         width: 1000px;
-        height: 500px;
+        height: auto;
         margin: auto;
         margin-top: 50px;
     }
-    .outer > table{
+    .outer table{
         border: 1px solid white;
         border-collapse: collapse;
     }
-    .outer > table tr, .outer > table td{
+    .outer table tr, .outer table td{
         border: 1px solid white;
     }
 </style>
@@ -79,6 +79,80 @@
             <% } %>
         </div>
 
+        <br>
+        <div id="reply-area">
+            <table align="center">
+                <thead>
+                    <tr>
+                        <th>댓글작성</th>
+                        <td>
+                            <textarea id="reply-content" cols="50" rows="3"></textarea>
+                        </td>
+                        <td>
+                            <button onclick="insertReply()">댓글등록</button>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+
+            <script>
+                window.onload = function(){
+                    // 댓글 가져와서, 그려주기
+                    selectReplyList();
+                }
+
+                function selectReplyList(){
+                    $.ajax({
+                        url: "rlist.bo",
+                        data: {
+                            bno: <%=b.getBoardNo()%>
+                        },
+                        success: function(res){
+                        	let str = "";
+                        	for (let reply of res) {
+                        		str += "<tr>"
+                     				+ "<td>" + reply.replyWriter + "</td>"
+                     				+ "<td>" + reply.replyContent + "</td>"
+                     				+ "<td>" + reply.createDate + "</td>"
+                     				+ "</tr>";
+                        	}
+                        	
+                        	document.querySelector("#reply-area tbody").innerHTML = str;
+                        	
+                        	
+                        },
+                        error: function(){
+                            console.log("댓글 목록 조회 실패")
+                        }
+
+                    })
+                }
+
+                function insertReply(){
+                    $.ajax({
+                        url: "rinsert.bo",
+                        data: {
+                            content: document.getElementById("reply-content").value,
+                            bno: <%=b.getBoardNo()%>
+                        },
+                        type: "post",
+                        success: function(res){
+                        	if (res > 0) {//댓글작성 성공
+                            	document.getElementById("reply-content").value = "";
+                            	selectReplyList();
+                            }
+                        },
+                        error:function(){
+							console.log("댓글 작성중 ajax통신 실패")
+                        }
+                    })
+                }
+
+            </script>
+        </div>
     </div>
 </body>
 </html>

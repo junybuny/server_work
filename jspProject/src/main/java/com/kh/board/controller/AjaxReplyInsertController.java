@@ -1,7 +1,6 @@
 package com.kh.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Board;
-import com.kh.common.model.vo.Attachment;
+import com.kh.board.model.vo.Reply;
+import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class ThumbnailDetailController
+ * Servlet implementation class AjaxReplyInsertController
  */
-@WebServlet("/detail.th")
-public class ThumbnailDetailController extends HttpServlet {
+@WebServlet("/rinsert.bo")
+public class AjaxReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ThumbnailDetailController() {
+    public AjaxReplyInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +32,22 @@ public class ThumbnailDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		String replyContent = request.getParameter("content");
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		Board b = new BoardService().increaseCount(boardNo);
+		Reply r = new Reply();
+		r.setReplyContent(replyContent);
+		r.setRefBoardNo(boardNo);
+		r.setReplyWriter(String.valueOf(userNo));
 		
+		int result = new BoardService().insertReply(r);
 		
-		if (b != null) {
-			ArrayList<Attachment> list = new BoardService().selectAttachmentList(boardNo);
-			
-			request.setAttribute("b", b);
-			request.setAttribute("list", list);
-			
-			request.getRequestDispatcher("views/board/thumbnailDetailView.jsp").forward(request, response);
-			
-		} else {
-			request.setAttribute("errorMsg", "사진 게시글 조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		response.getWriter().print(result);
+		
 	}
 
 	/**

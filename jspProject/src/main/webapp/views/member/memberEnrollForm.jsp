@@ -29,7 +29,7 @@
                 <tr>
                     <td>* 아이디</td>
                     <td><input type="text" name="userId" maxlength="12" required></td>
-                    <td><button type="button">중복확인</button></td>
+                    <td><button type="button" onclick="idCheck()">중복확인</button></td>
                 </tr>
                 <tr>
                     <td>* 비밀번호</td>
@@ -88,7 +88,7 @@
             <br><br>
 
             <div align = "center">
-                <button type="submit" onclick="return checkPwd();">회원가입</button>
+                <button type="submit" disabled onclick="return checkPwd();">회원가입</button>
                 <button type="reset">초기화</button>
             </div>
 
@@ -105,6 +105,43 @@
                     alert("비밀번호가 일치하지 않습니다.");
                     return false;
                 }
+            }
+            
+            function idCheck(){
+            	// 중복확인 버튼 클릭시 사용자가 입력한 아이디값을 서버에 보내서 조회요청(존재하는지 안하는지) => 응답데이터 돌려받기
+            	// 1) 사용불가능일 경우 => alert로 메세지 출력, 다시 입력할 수 있도록 유도
+            	// 2) 사용가능한 경우 => 진짜 사용할건지 의사 물어봄
+            	//					> 사용하겠다는경우 => 더이상 아이디 수정 못하게끔, 회원가입버튼 활성화
+            	//					> 사용하지 않겠다는경우 => 다시 입력할 수 있도록 유도
+            	
+            	const idInput = document.querySelector("#enroll-form input[name=userId]");
+            	console.log(idInput.value)
+            	
+            	$.ajax({
+                    url: "idCheck.me",
+                    data: {
+                    	"checkId": idInput.value
+                    },
+                    success: function(res){
+                    	if (res == "NNNNY") {
+                    		if (confirm("사용가능한 아이디입니다. 사용하시겠습니까?")) {
+                    			let submitBtn = document.querySelector("#enroll-form button[type=submit]");
+                    			submitBtn.removeAttribute("disabled");
+                    			
+                    			idInput.setAttribute("readonly", true);
+                    		} else {
+                    			idInput.focus();
+                    		}
+                    	} else {
+                    		alert("이미존재하거나 탈퇴한 회원입니다.");
+                    		idInput.focus();
+                    	}
+                    	
+                    },
+                    error: function(){
+                    	console.log("아이디 중복체크용 ajax통신실패");
+                    }
+                })
             }
         </script>
     </div>

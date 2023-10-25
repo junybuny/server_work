@@ -29,18 +29,19 @@
 </head>
 <body>
     <%@ include file="../common/menubar.jsp" %>
-    
     <div class="outer">
         <br>
         <h2 align="center">사진게시판 작성하기</h2>
         <br>
-        
-        <form action="<%=contextPath %>/insert.th" id="enroll-form" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="userNo" id="<%=loginUser.getUserNo()%>">
+
+        <form action="<%=contextPath%>/insert.th" id="enroll-form" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
             <table align="center">
                 <tr>
                     <th width="100">제목</th>
-                    <td colspan="3"><input type="text" name="title" required></td>
+                    <td colspan="3">
+                        <input type="text" name="title" required>
+                    </td>
                 </tr>
                 <tr>
                     <th>내용</th>
@@ -51,7 +52,7 @@
                 <tr>
                     <th>대표이미지</th>
                     <td colspan="3">
-                        <img id="title-img" width="250" height="170" onclick="chooseFile(1);"> 
+                        <img id="title-img" width="250" height="170" onclick="chooseFile(1);">
                     </td>
                 </tr>
                 <tr>
@@ -63,37 +64,37 @@
             </table>
 
             <div style="display: none;">
-                <input type="file" name="file1" id="file1" required onchange="loadImg(this, 1)">
-                <input type="file" name="file2" id="file2" onchange="loadImg(this, 2)">
-                <input type="file" name="file3" id="file3" onchange="loadImg(this, 3)">
-                <input type="file" name="file4" id="file4" onchange="loadImg(this, 4)">
+                <input type="file" name="file1" id="file1" required onchange="loadImg(this,1)">
+                <input type="file" name="file2" id="file2" onchange="loadImg(this,2)">
+                <input type="file" name="file3" id="file3" onchange="loadImg(this,3)">
+                <input type="file" name="file4" id="file4" onchange="loadImg(this,4)">
             </div>
 
             <script>
                 function loadImg(inputFile, num){
                     console.log(inputFile)
-                    // inputFile : 현재 변화가 생긴 input type=file 요소객체
-                    // num : 몇번째 input요소인지 확인하기 위한 파라미터
+                    //inputFile : 현재 변화가 생긴 input type=file 요소객체
+                    // num : 몇번째 input요소인지 확인하기위한 파라미터
+                    
+                    //inputFile.files[0]에 선택된 파일이 담겨있을 것이다.
+                    //inputFile.files.length => 1일 것이다.
 
-                    // inputFile.files[0]에 선택된 파일이 담겨있을 것이다.
-                    // inputFile.files.length => 1일 것이다.
-
-                    if (inputFile.files.length == 1) { // 파일이 선택된 경우 => 미리보기 나타나게
-                        // 파일을 읽어들일 FileReader객체 생성
+                    if(inputFile.files.length == 1) { // 파일이 선택된 경우 => 미리보기 나타나게
+                        //파일을 읽어들일 FileReader객체 생성
                         const reader = new FileReader();
 
-                        // 파일을 읽어들이는 메서드
-                        // 해당파일을 읽어들이는 순간 해당 파일만의 고유한 url부여
+                        //파일을 읽어들이는 메소드
+                        //해당파일을 읽어들이는 순간 해당 파일만의 고유한 url부여
                         reader.readAsDataURL(inputFile.files[0]);
-
-                        // 파일 읽어들이기 완료했을때 실행할 함수 정의
-                        reader.onload = function(ev){
-                            // ev.target.result => 읽어들인 파일의 고유한 url
+                        
+                        //파일 읽어들이기 완료했을 때 실행할 함수 정의
+                        reader.onload = function(ev){          
+                            //ev.target.result => 읽어들인 파일의 고유한 url
                             switch(num){
                                 case 1: document.getElementById('title-img').src = ev.target.result; break;
                                 case 2: document.getElementById('content-img1').src = ev.target.result; break;
                                 case 3: $("#content-img2").attr("src", ev.target.result); break;
-                                case 4: $("#content-img3").attr("src", ev.target.result);
+                                case 4: $("#content-img3").attr("src", ev.target.result); 
                             }
                         }
 
@@ -106,17 +107,18 @@
                         }
                     }
                 }
-
+                
                 function chooseFile(num){
                     $("#file" + num).click();
                 }
-
             </script>
+
             <br>
 
             <div align="center">
                 <button type="submit">등록하기</button>
             </div>
+
         </form>
     </div>
 </body>

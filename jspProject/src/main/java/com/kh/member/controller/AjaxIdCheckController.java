@@ -1,7 +1,6 @@
-package com.kh.board.controller;
+package com.kh.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Board;
-import com.kh.common.model.vo.Attachment;
+import com.kh.member.model.service.MemberService;
 
 /**
- * Servlet implementation class ThumbnailDetailController
+ * Servlet implementation class AjaxIdCheckController
  */
-@WebServlet("/detail.th")
-public class ThumbnailDetailController extends HttpServlet {
+@WebServlet("/idCheck.me")
+public class AjaxIdCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ThumbnailDetailController() {
+    public AjaxIdCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +29,18 @@ public class ThumbnailDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
-		Board b = new BoardService().increaseCount(boardNo);
+		String checkId = request.getParameter("checkId");
+
+		int count = new MemberService().idCheck(checkId);
 		
-		
-		if (b != null) {
-			ArrayList<Attachment> list = new BoardService().selectAttachmentList(boardNo);
+		if (count > 0) { // 이미 사용자가 존재한다 => 사용할 수 없음
+			response.getWriter().print("NNNNN");
 			
-			request.setAttribute("b", b);
-			request.setAttribute("list", list);
-			
-			request.getRequestDispatcher("views/board/thumbnailDetailView.jsp").forward(request, response);
-			
-		} else {
-			request.setAttribute("errorMsg", "사진 게시글 조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		} else { // 아이디 사용자가 없다 => 사용가능
+			response.getWriter().print("NNNNY");
 		}
+		
 	}
 
 	/**
